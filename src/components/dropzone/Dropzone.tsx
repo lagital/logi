@@ -3,13 +3,19 @@ import './style.css';
 import CloudUploadOutlined from '@mui/icons-material/CloudUploadOutlined';
 import { DropzoneArea } from 'react-mui-dropzone';
 
-export default function Dropzone() {
+interface DropzoneProps {
+  extFilesHandler: (files: File[]) => any
+}
+
+export default function Dropzone(props: DropzoneProps) {
   return (
     <DropzoneArea
-      onChange={(files: File[]) => console.log('Files:', files)}
+      onChange={(files: File[]) => props.extFilesHandler(files)}
       useChipsForPreview
       filesLimit={10}
       Icon = {CloudUploadOutlined}
+      dropzoneText = {""}
+      showAlerts = {false}
   />
   )
 }

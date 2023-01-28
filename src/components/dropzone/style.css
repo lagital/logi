@@ -1,3 +1,7 @@
 .MuiDropzoneArea-root {
     min-height: unset !important;
 }
+
+.MuiDropzoneArea-text {
+    margin: unset !important;
+}
