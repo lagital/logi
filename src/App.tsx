@@ -9,6 +9,7 @@ export default function App() {
   const [files, setFilesState] = React.useState([] as File[]);
 
   const extFilesHandler = (files: File[]) => {
+    console.info(files)
     if (files && files.length > 0) {
       setFilesState(files);
     }

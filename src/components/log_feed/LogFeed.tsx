@@ -2,6 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
+import { MetaFile } from '../../meta/MetaFile';
 
 const colorMap = new Map<number, String>([
   [0, "#E1BEE7"],
@@ -22,6 +23,11 @@ interface LogFeedProps {
 }
 
 export default function LogFeed(props: LogFeedProps) {
+  var metaFiles = [] as MetaFile[]
+  for (var f of props.files) {
+    metaFiles.push(MetaFile.build(f))
+  }
+
   return (
     <Box>
       {props.files.map((file, i) => (

@@ -1,6 +1,6 @@
-import FileIdentifier from "./FileIdentifier"
+import IFileIdentifier from "./IFileIdentifier"
 
-export default class StandardFileIdentifier implements FileIdentifier {
+export default class StandardFileIdentifier implements IFileIdentifier {
     private regexFileExt: RegExp = RegExp("/\.[0-9a-z]+$/i")
 
     identifyType(file: File): String {
@@ -12,7 +12,7 @@ export default class StandardFileIdentifier implements FileIdentifier {
     }
 }
 
-enum LogFileTypes {
+export enum LogFileTypes {
     HAR,
     GENERAL
     //CEF, CLF, ELF,
