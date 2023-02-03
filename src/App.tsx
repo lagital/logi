@@ -4,16 +4,30 @@ import Box from '@mui/material/Box';
 import Dropzone from './components/dropzone/Dropzone';
 import FileList from './components/file_list/FileList';
 import LogFeed from './components/log_feed/LogFeed';
+import { MetaFile } from './meta/MetaFile';
 
 export default function App() {
-  const [files, setFilesState] = React.useState([] as File[]);
+  const [metaFiles, setMetaFilesState] = React.useState([] as MetaFile[])
 
   const extFilesHandler = (files: File[]) => {
-    console.info(files)
-    if (files && files.length > 0) {
-      setFilesState(files);
+    const newMetaFiles: MetaFile[] = []
+    var   inputFiles: File[] = []
+
+    if (files.length == 0) {
+      setMetaFilesState([]);
+    } else {
+      inputFiles = files
     }
-  };
+
+    for (var f of inputFiles) {
+      const metaFile = MetaFile.buildMetaFile(f)
+      MetaFile.buildMetLines(f, metaFile).then((lines) => {
+        metaFile.metaLines = lines
+        newMetaFiles.push(metaFile)
+        setMetaFilesState([...[] as MetaFile[], ...newMetaFiles]);
+      })
+    }
+  }
 
   return (
     <Container maxWidth="sm">
@@ -24,12 +38,14 @@ export default function App() {
       <Box/>
       <Box sx={{ my: 2 }}></Box>
         <FileList
-          files = {files}
+          key={metaFiles.toString()}
+          metaFiles = {metaFiles}
         />
       </Box>
       <Box sx={{ my: 2 }}>
         <LogFeed
-          files = {files}
+          key={metaFiles.toString()}
+          metaFiles = {metaFiles}
         />
       </Box>
     </Container>

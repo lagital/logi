@@ -8,17 +8,20 @@ import HarParser from "../parsers/HarParser";
 export class MetaFile {
     name: String
     type: String
-    metaLines: MetaLine[]
+    metaLines: MetaLine[] = [] as MetaLine[]
     fileIdentifiers: IFileIdentifier[] = [new StandardFileIdentifier, new CustomFileIdentifier]
 
-    static build(file: File): MetaFile {
-        return new MetaFile(file);
+    static buildMetaFile(file: File): MetaFile {
+        return new MetaFile(file)
+    }
+
+    static async buildMetLines(file: File, metaFile: MetaFile): Promise<MetaLine[]> {
+        return MetaFile.extractMetaLines(file, metaFile.type)
     }
 
     private constructor(file: File) {
         this.name = file.name
         this.type = this.identifyFile(file)
-        this.metaLines = this.extractMetaLines(file, this.type)
     };
 
     private identifyFile(file: File): String {
@@ -33,10 +36,11 @@ export class MetaFile {
         throw new Error("Unknown log file type")
     }
 
-    private extractMetaLines(file: File, fileType: String): MetaLine[] {
+    private static async extractMetaLines(file: File, fileType: String): Promise<MetaLine[]> {
         switch(fileType) {
             case LogFileTypes.HAR.toString(): {
-                return new HarParser().parse(file)
+                const parser = new HarParser()
+                return parser.parse(file)
             }
             default: { 
                 throw new Error("Unknow parser for log file type " + fileType)

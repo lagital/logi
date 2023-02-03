@@ -7,9 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
+import { MetaFile } from '../../meta/MetaFile';
 
 interface FileListProps {
-  files: File[]
+  metaFiles: MetaFile[]
 }
 
 export default function FileList(props: FileListProps) {
@@ -23,16 +24,16 @@ export default function FileList(props: FileListProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.files.map((file, i) => (
+          {props.metaFiles.map((metaFile) => (
             <TableRow
-              key={i}
+              key={metaFile.name.toString()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {file.name}
+                {metaFile.name}
               </TableCell>
               <TableCell>
-                <Chip label={file.size} variant="outlined" />
+                <Chip label={metaFile.type} variant="outlined" />
               </TableCell>
             </TableRow>
           ))}

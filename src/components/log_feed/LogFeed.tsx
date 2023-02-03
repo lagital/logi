@@ -19,21 +19,18 @@ function getColor(index: number): String {
 };
 
 interface LogFeedProps {
-  files: File[]
+  metaFiles: MetaFile[]
 }
 
 export default function LogFeed(props: LogFeedProps) {
-  var metaFiles = [] as MetaFile[]
-  for (var f of props.files) {
-    metaFiles.push(MetaFile.build(f))
-  }
-
   return (
     <Box>
-      {props.files.map((file, i) => (
+      {props.metaFiles.map((metaFile, i) => (
         <Card key={i} sx={{p: 2, my: 1}} style={{backgroundColor: "" + getColor(i)}}>
-          <Typography variant="caption" display="block" gutterBottom>{file.name}</Typography>
-          <Typography variant="body2" gutterBottom>{file.size}</Typography>
+          <Typography variant="caption" display="block" gutterBottom>{metaFile.name}</Typography>
+          {metaFile.metaLines.map((metaLine) => (
+            <Typography variant="body2" gutterBottom>{metaLine.timestamp + ": " + metaLine.content}</Typography>
+          ))}
         </Card>
       ))}
     </Box>

@@ -1,3 +1,9 @@
 export default class MetaLine {
-    constructor(timestamp: String, content: String) {}
+    timestamp: String
+    content:   String
+
+    constructor(timestamp: String, content: String) {
+        this.timestamp = timestamp
+        this.content   = content
+    }
 }

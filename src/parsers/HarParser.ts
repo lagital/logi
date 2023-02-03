@@ -1,11 +1,26 @@
 import MetaLine from "../meta/MetaLine";
 import IParser from "./IParser";
 
+
 export default class HarParser implements IParser {
-    parse(file: File): MetaLine[] {
-        var har = require('har')
-        const log = har.Log(file)
-        console.info(log.version)
-        return [] as MetaLine[]
+    async parse(file: File): Promise<MetaLine[]> {
+        return file.text()
+        .then(function(text) {
+            var lines = [] as MetaLine[]
+            const json = JSON.parse(text)
+            const log = json["log"]
+            const entries = log["entries"]
+            
+            console.log(entries)
+
+            for (var e of entries) {
+                lines.push(new MetaLine(
+                    e["startedDateTime"],
+                    e["request"]["url"] + ": " + e["request"]["url"]
+                ))
+            }
+
+            return lines
+        })
     }
 }
