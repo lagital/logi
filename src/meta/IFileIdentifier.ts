@@ -1,3 +1,3 @@
 export default interface IFileIdentifier {
-    identifyType(file: File): String
+    identifyType(file: File): String | null
 }

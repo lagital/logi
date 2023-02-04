@@ -1,5 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# samples
+/log_samples
+
+# customs
+/src/meta/CustomFileIdentfier.ts
+/src/parsers/WsrtpParser.ts
+/src/components/log_feed/CustomColorMap.ts
+
 # dependencies
 /node_modules
 /.pnp

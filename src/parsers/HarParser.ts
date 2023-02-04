@@ -1,4 +1,5 @@
 import MetaLine from "../meta/MetaLine";
+import { LogFileTypes } from "../meta/StandardFileIdentifier";
 import IParser from "./IParser";
 
 
@@ -6,17 +7,24 @@ export default class HarParser implements IParser {
     async parse(file: File): Promise<MetaLine[]> {
         return file.text()
         .then(function(text) {
-            var lines = [] as MetaLine[]
+            const lines = [] as MetaLine[]
             const json = JSON.parse(text)
             const log = json["log"]
             const entries = log["entries"]
-            
-            console.log(entries)
 
             for (var e of entries) {
+                let samlData = undefined
+
+                if (e["request"]["url"].toString().indexOf("collector")) {
+                    samlData = e["request"]["url"].toString().split("collector").pop()
+                }
+
                 lines.push(new MetaLine(
-                    e["startedDateTime"],
-                    e["request"]["url"] + ": " + e["request"]["url"]
+                    Date.parse(e["startedDateTime"]),
+                    e["request"]["method"] + ": " + e["request"]["url"],
+                    file.name,
+                    LogFileTypes.HAR.toString(),
+                    samlData
                 ))
             }
 
