@@ -41,6 +41,6 @@ export class MetaFile {
         // har
         if (fileType == LogFileTypes.HAR.toString()) return new HarParser().parse(file)
         // custom
-        return new CustomParser().parse(file)
+        return new CustomParser(fileType).parse(file)
     }
 }
