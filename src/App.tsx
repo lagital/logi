@@ -5,6 +5,7 @@ import Dropzone from './components/dropzone/Dropzone';
 import FileList from './components/file_list/FileList';
 import LogFeed from './components/log_feed/LogFeed';
 import { MetaFile } from './meta/MetaFile';
+import './style.css';
 
 export default function App() {
   const [metaFiles, setMetaFilesState] = React.useState([] as MetaFile[])

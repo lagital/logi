@@ -4,6 +4,12 @@ import IParser from "./IParser";
 
 
 export default class HarParser implements IParser {
+    fileType: String
+
+    constructor(fileType: String) {
+        this.fileType = fileType
+    }
+
     async parse(file: File): Promise<MetaLine[]> {
         return file.text()
         .then(function(text) {

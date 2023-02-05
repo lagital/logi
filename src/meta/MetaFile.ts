@@ -39,7 +39,7 @@ export class MetaFile {
 
     private static async extractMetaLines(file: File, fileType: String): Promise<MetaLine[]> {
         // har
-        if (fileType == LogFileTypes.HAR.toString()) return new HarParser().parse(file)
+        if (fileType == LogFileTypes.HAR.toString()) return new HarParser(fileType).parse(file)
         // custom
         return new CustomParser(fileType).parse(file)
     }

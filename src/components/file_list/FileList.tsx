@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import { MetaFile } from '../../meta/MetaFile';
+import getColor from '../log_feed/StandardColorMap';
 
 interface FileListProps {
   metaFiles: MetaFile[]
@@ -27,13 +28,13 @@ export default function FileList(props: FileListProps) {
           {props.metaFiles.map((metaFile) => (
             <TableRow
               key={metaFile.name.toString()}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{'&:last-child td, &:last-child th': { border: 0}}}
             >
               <TableCell component="th" scope="row">
                 {metaFile.name}
               </TableCell>
               <TableCell>
-                <Chip label={metaFile.type} variant="outlined" />
+                <Chip label={metaFile.type} variant="outlined" sx={{backgroundColor: "" + getColor(metaFile.type)}}/>
               </TableCell>
             </TableRow>
           ))}
